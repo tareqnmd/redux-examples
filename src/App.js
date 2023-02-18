@@ -13,7 +13,8 @@ export default function App() {
 
 				<div className="max-w-md mx-auto mt-10 space-y-5">
 					<Counter />
-					<VariableCounter dynamic={true} />
+					<VariableCounter />
+					<VariableCounter dynamic />
 				</div>
 			</div>
 		</Provider>
