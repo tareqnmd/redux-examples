@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import cancel from '../assets/images/cancel.png';
-import { colorSelected, toggled } from '../redux/todos/actions';
+import { colorSelected, deleted, toggled } from '../redux/todos/actions';
 
 const ToDo = ({ todo }) => {
 	const dispatch = useDispatch();
@@ -8,6 +8,10 @@ const ToDo = ({ todo }) => {
 
 	const handleStatusChange = () => {
 		dispatch(toggled(id));
+	};
+
+	const handleDelete = () => {
+		dispatch(deleted(id));
 	};
 
 	const handleColorChange = (changedColor) => {
@@ -60,7 +64,12 @@ const ToDo = ({ todo }) => {
 				onClick={() => handleColorChange('red')}
 			></div>
 
-			<img src={cancel} className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer" alt="Cancel" />
+			<img
+				src={cancel}
+				className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
+				alt="Cancel"
+				onClick={handleDelete}
+			/>
 		</div>
 	);
 };
