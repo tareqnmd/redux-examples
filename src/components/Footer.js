@@ -12,10 +12,13 @@ const numberOfTodos = (num_of_todos) => {
 	}
 };
 
+const colorCheck = (colors, color) => colors.includes(color);
+
 const Footer = () => {
 	const dispatch = useDispatch();
 	const todos = useSelector((state) => state.todos);
 	const filters = useSelector((state) => state.filters);
+
 	const { status, colors } = filters;
 	const todosRemaining = todos.filter((todo) => !todo.completed).length;
 
@@ -24,7 +27,11 @@ const Footer = () => {
 	};
 
 	const handleColorChange = (color) => {
-		dispatch(colorChanged(color));
+		if (colorCheck(colors, color)) {
+			dispatch(colorChanged(color, 'removed'));
+		} else {
+			dispatch(colorChanged(color, 'added'));
+		}
 	};
 
 	return (
@@ -55,15 +62,21 @@ const Footer = () => {
 				<li></li>
 				<li
 					onClick={() => handleColorChange('green')}
-					className="h-3 w-3 border-2 border-green-500 md:hover:bg-green-500 rounded-full cursor-pointer bg-green-500"
-				></li>
-				<li
-					onClick={() => handleColorChange('red')}
-					className="h-3 w-3 border-2 border-red-500 md:hover:bg-red-500 rounded-full cursor-pointer"
+					className={`h-3 w-3 border-2 border-green-500 md:hover:bg-green-500 rounded-full cursor-pointer ${
+						colorCheck(colors, 'green') && 'bg-green-500'
+					}`}
 				></li>
 				<li
 					onClick={() => handleColorChange('yellow')}
-					className="h-3 w-3 border-2 border-yellow-500 md:hover:bg-yellow-500 rounded-full cursor-pointer"
+					className={`h-3 w-3 border-2 border-yellow-500 md:hover:bg-yellow-500 rounded-full cursor-pointer ${
+						colorCheck(colors, 'yellow') && 'bg-yellow-500'
+					}`}
+				></li>
+				<li
+					onClick={() => handleColorChange('red')}
+					className={`h-3 w-3 border-2 border-red-500 md:hover:bg-red-500 rounded-full cursor-pointer ${
+						colorCheck(colors, 'red') && 'bg-red-500'
+					}`}
 				></li>
 			</ul>
 		</div>
