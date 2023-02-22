@@ -10,8 +10,8 @@ const ToDo = ({ todo }) => {
 		dispatch(toggled(id));
 	};
 
-	const handleColorChange = () => {
-		dispatch(colorSelected(id));
+	const handleColorChange = (changedColor) => {
+		dispatch(colorSelected(id, changedColor));
 	};
 
 	return (
@@ -43,21 +43,21 @@ const ToDo = ({ todo }) => {
 				className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${
 					color === 'green' && 'bg-green-500'
 				}`}
-				onClick={handleColorChange}
+				onClick={() => handleColorChange('green')}
 			></div>
 
 			<div
 				className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${
 					color === 'yellow' && 'bg-yellow-500'
 				} `}
-				onClick={handleColorChange}
+				onClick={() => handleColorChange('yellow')}
 			></div>
 
 			<div
 				className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${
 					color === 'red' && 'bg-red-500'
 				} `}
-				onClick={handleColorChange}
+				onClick={() => handleColorChange('red')}
 			></div>
 
 			<img src={cancel} className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer" alt="Cancel" />
