@@ -17,7 +17,7 @@ const todoReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case ADDED:
-			const newTodo = { id: nextTodoId(state), ...payload };
+			const newTodo = { id: nextTodoId(state), text: payload, completed: false };
 			return [...state, newTodo];
 		case TOGGLED:
 			return state.map((todo) => {
