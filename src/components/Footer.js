@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 const numberOfTodos = (num_of_todos) => {
 	switch (num_of_todos) {
 		case 0:
-			return 'No tasks';
+			return 'No task';
 		case 1:
 			return '1 task';
 		default:
