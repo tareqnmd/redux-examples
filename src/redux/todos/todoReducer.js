@@ -20,7 +20,7 @@ const todoReducer = (state = initialState, action) => {
 			const newTodo = { id: nextTodoId(state), ...payload };
 			return [...state, newTodo];
 		case TOGGLED:
-			return [...state].map((todo) => {
+			return state.map((todo) => {
 				if (todo.id === payload) {
 					return { ...todo, completed: !todo.completed };
 				}
@@ -28,21 +28,21 @@ const todoReducer = (state = initialState, action) => {
 			});
 		case COLOR_SELECTED:
 			const { todoId, color } = payload;
-			return [...state].map((todo) => {
+			return state.map((todo) => {
 				if (todo.id === todoId) {
 					return { ...todo, color };
 				}
 				return todo;
 			});
 		case DELETED:
-			return [...state].filter((todo) => todo.id !== payload);
+			return state.filter((todo) => todo.id !== payload);
 		case ALL_COMPLETED:
-			return [...state].map((todo) => ({
+			return state.map((todo) => ({
 				...todo,
 				complete: true,
 			}));
 		case CLEAR_COMPLETED:
-			return [...state].filter((todo) => !todo.completed);
+			return state.filter((todo) => !todo.completed);
 		default:
 			return state;
 	}
