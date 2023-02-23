@@ -29,7 +29,7 @@ const ToDo = ({ todo }) => {
 					type="checkbox"
 					checked={completed}
 					onChange={handleStatusChange}
-					className="opacity-0 absolute rounded-full inset-0"
+					className="opacity-0 absolute rounded-full inset-0 cursor-pointer"
 				/>
 				{completed && (
 					<svg
