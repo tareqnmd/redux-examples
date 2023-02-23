@@ -18,7 +18,7 @@ const todoReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case LOADED:
-			return [...state, ...payload];
+			return payload;
 		case ADDED:
 			const newTodo = { id: nextTodoId(state), text: payload, completed: false };
 			return [...state, newTodo];
