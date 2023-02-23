@@ -48,12 +48,8 @@
     {
       "text": "Tareq Work",
       "completed": false,
-      "id": 9
-    },
-    {
-      "text": "Sayma Work",
-      "completed": false,
-      "id": 10
+      "id": 9,
+      "color": "red"
     }
   ]
 }
