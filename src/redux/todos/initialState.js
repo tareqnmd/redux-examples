@@ -1,5 +1,2 @@
-const initialState = [
-	{ id: 1, text: 'Learn Js', completed: true },
-	{ id: 2, text: 'Learn React', completed: false, color: 'red' },
-];
+const initialState = [];
 export default initialState;
