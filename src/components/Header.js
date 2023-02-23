@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import doubleTick from '../assets/images/double-tick.png';
 import notes from '../assets/images/notes.png';
 import plus from '../assets/images/plus.png';
-import { added, allCompleted, clearCompleted } from '../redux/todos/actions';
+import { allCompleted, clearCompleted } from '../redux/todos/actions';
+import addTodo from '../redux/todos/thunk/addTodo';
 
 const Header = () => {
 	const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Header = () => {
 	};
 	const addTodoHandler = (e) => {
 		e.preventDefault();
-		dispatch(added(ref.current.value));
+		dispatch(addTodo(ref.current.value));
 		e.target.reset();
 	};
 	return (
