@@ -28,7 +28,7 @@ const VideoGridItem = ({ video }) => {
 							{author}
 						</NavLink>
 						<p className="text-gray-400 text-xs mt-1">
-							{views} . {date}
+							{views} views . {date}
 						</p>
 					</div>
 				</div>
