@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 
 const VideoGridItem = ({ video }) => {
-	const { avatar, thumbnail, author, title, views, date, id } = video;
+	const { avatar, thumbnail, author, title, views, date, duration, id } = video;
 	return (
 		<div className="col-span-12 sm:col-span-6 md:col-span-3 duration-300 hover:scale-[1.03]">
 			<div className="w-full flex flex-col">
@@ -11,7 +11,7 @@ const VideoGridItem = ({ video }) => {
 					</Link>
 
 					<p className="absolute right-2 bottom-2 bg-gray-900 text-gray-100 text-xs px-1 py">
-						12:10
+						{duration}
 					</p>
 				</div>
 
