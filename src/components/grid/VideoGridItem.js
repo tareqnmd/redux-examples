@@ -7,7 +7,7 @@ const VideoGridItem = ({ video }) => {
 			<div className="w-full flex flex-col">
 				<div className="relative">
 					<Link to={`/videos/${id}`}>
-						<img src={thumbnail} className="w-full h-auto" alt="Some video title" />
+						<img src={thumbnail} className="w-full h-auto" alt={title} />
 					</Link>
 
 					<p className="absolute right-2 bottom-2 bg-gray-900 text-gray-100 text-xs px-1 py">
@@ -17,7 +17,7 @@ const VideoGridItem = ({ video }) => {
 
 				<div className="flex flex-row mt-2 gap-2">
 					<NavLink to={`/videos/${id}`} className="shrink-0">
-						<img src={avatar} className="rounded-full h-6 w-6" alt="Learn with Sumit" />
+						<img src={avatar} className="rounded-full h-6 w-6" alt={author} />
 					</NavLink>
 
 					<div className="flex flex-col">
