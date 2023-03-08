@@ -1,4 +1,8 @@
+import { useDispatch } from 'react-redux';
+import { searched } from '../../features/filter/filterSlice';
+
 const Search = () => {
+	const dispatch = useDispatch();
 	return (
 		<form>
 			<input
@@ -6,6 +10,7 @@ const Search = () => {
 				type="search"
 				name="search"
 				placeholder="Search"
+				onChange={(e) => dispatch(searched(e.target.value))}
 			/>
 		</form>
 	);
