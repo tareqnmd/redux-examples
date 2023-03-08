@@ -3,7 +3,7 @@ const { createAsyncThunk, createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
 	videos: [],
-	isLoading: false,
+	isLoading: true,
 	isError: false,
 	error: '',
 };
