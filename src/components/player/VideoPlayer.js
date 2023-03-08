@@ -7,7 +7,7 @@ const VideoPlayer = () => {
 			title="Some video title"
 			frameborder=""
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
+			allowFullscreen
 		></iframe>
 	);
 };
