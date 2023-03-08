@@ -25,13 +25,7 @@ const VideoGrid = () => {
 		content = <NoData />;
 	}
 	if (!isLoading && !isError && videos?.length > 0) {
-		content = (
-			<>
-				{videos.map((video) => (
-					<VideoGridItem key={video.id} video={video} />
-				))}
-			</>
-		);
+		content = videos.map((video) => <VideoGridItem key={video.id} video={video} />);
 	}
 
 	return (
