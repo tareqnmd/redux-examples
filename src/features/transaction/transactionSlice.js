@@ -42,7 +42,12 @@ const transactionsSlice = createSlice({
 	name: 'transactions',
 	initialState,
 	reducers: () => {},
-	extraReducers: (builder) => {},
+	extraReducers: (builder) => {
+		builder.addCase(fetchTransactions.pending, (state, action) => {
+			state.isError = false;
+			state.isLoading = true;
+		});
+	},
 });
 
 export default transactionsSlice.reducer;
