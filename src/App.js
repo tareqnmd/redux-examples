@@ -1,18 +1,14 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Footer from './components/footer/Footer';
-import Navbar from './components/navbar/Navbar';
+import './App.css';
+import Footer from './components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
-import Video from './pages/Video';
 
 export default function App() {
 	return (
-		<Router>
+		<div className="App">
 			<Navbar />
-			<Routes>
-				<Route path="/" element={<Home />}></Route>
-				<Route path="/videos/:videoId" element={<Video />}></Route>
-			</Routes>
+			<Home />
 			<Footer />
-		</Router>
+		</div>
 	);
 }
