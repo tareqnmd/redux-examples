@@ -4,12 +4,10 @@ import Expenses from '../components/expense-tracker/Expenses';
 
 const Home = () => {
 	return (
-		<div className="main">
-			<div className="container">
-				<CurrentBalance />
-				<AddExpense />
-				<Expenses />
-			</div>
+		<div className="container">
+			<CurrentBalance />
+			<AddExpense />
+			<Expenses />
 		</div>
 	);
 };
