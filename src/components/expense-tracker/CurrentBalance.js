@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { numberWithCommas } from '../../utils/thousandSeparator';
 
 const getBalance = (transactions) => {
 	return transactions.reduce(
@@ -15,7 +16,7 @@ const CurrentBalance = () => {
 			<p>Your Current Balance</p>
 			<h3>
 				<span>৳</span>
-				<span>{getBalance(transactions)}</span>
+				<span>{numberWithCommas(getBalance(transactions))}</span>
 			</h3>
 		</div>
 	);

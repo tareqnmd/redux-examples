@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import deleteIcon from '../../assets/images/delete.svg';
 import editIcon from '../../assets/images/edit.svg';
 import { editActive, removeTransaction } from '../../features/transaction/transactionSlice';
+import { numberWithCommas } from '../../utils/thousandSeparator';
 const Expense = ({ transaction = {} }) => {
 	const dispatch = useDispatch();
 	const { id, name, amount, type } = transaction;
@@ -15,7 +16,7 @@ const Expense = ({ transaction = {} }) => {
 		<li className={`transaction ${type}`}>
 			<p>{name}</p>
 			<div className="right">
-				<p>৳ {amount}</p>
+				<p>৳ {numberWithCommas(amount)}</p>
 				<button
 					onClick={handleEdit}
 					className="link"
