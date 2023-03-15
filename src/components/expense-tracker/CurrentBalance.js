@@ -3,12 +3,7 @@ import { useSelector } from 'react-redux';
 const getBalance = (transactions) => {
 	return transactions.reduce(
 		(acc, transaction) =>
-			acc +
-			(transaction.type === 'income'
-				? transaction.amount
-				: transaction.type === 'expense'
-				? -transaction.amount
-				: 0),
+			transaction.type === 'income' ? (acc += transaction.amount) : (acc -= transaction.amount),
 		0
 	);
 };
