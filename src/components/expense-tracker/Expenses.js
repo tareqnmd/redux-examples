@@ -10,7 +10,7 @@ const Expenses = () => {
 	if (isLoading) {
 		content = <p className="text-center">Loading...</p>;
 	} else if (!isLoading && isError) {
-		content = <p className="eror">{error}</p>;
+		content = <p className="error">{error}</p>;
 	} else if (!isLoading && !isError && transactions.length === 0) {
 		content = <p className="text-center">No Data Found!</p>;
 	} else if (!isLoading && !isError && transactions.length > 0) {

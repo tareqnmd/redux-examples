@@ -9,10 +9,15 @@ const AddExpense = () => {
 		const { name, value } = e.target;
 		setValues((prev) => ({ ...prev, [name]: value }));
 	};
-	const handleCreate = (e) => {
+
+	const reset = (e) => {
 		e.preventDefault();
 		e.target.reset();
 		setValues({ name: '', type: 'income', amount: '' });
+	};
+
+	const handleCreate = (e) => {
+		reset(e);
 		dispatch(createTransaction({ ...values, amount: Number(values.amount) }));
 	};
 	return (
@@ -69,7 +74,11 @@ const AddExpense = () => {
 					/>
 				</div>
 
-				<button disabled={isLoading} className="btn" type="submit">
+				<button
+					disabled={isLoading}
+					className="btn"
+					type="submit"
+				>
 					Add Transaction
 				</button>
 
