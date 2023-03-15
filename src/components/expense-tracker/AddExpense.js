@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTransaction } from '../../features/transaction/transactionSlice';
 const AddExpense = () => {
-	const [values, setValues] = useState({ name: '', type: 'income', amount: '' });
+	const [values, setValues] = useState({ name: '', type: '', amount: '' });
 	const dispatch = useDispatch();
 	const { isLoading, isError, error } = useSelector((state) => state.transaction);
 	const stateChange = (e) => {
@@ -13,7 +13,7 @@ const AddExpense = () => {
 	const reset = (e) => {
 		e.preventDefault();
 		e.target.reset();
-		setValues({ name: '', type: 'income', amount: '' });
+		setValues({ name: '', type: '', amount: '' });
 	};
 
 	const handleCreate = (e) => {
