@@ -1,7 +1,7 @@
 {
   "transactions": [
     {
-      "name": "Salary",
+      "name": "Salary New",
       "type": "income",
       "amount": 50000,
       "id": 1
