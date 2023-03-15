@@ -34,8 +34,8 @@ export const changeTransaction = createAsyncThunk(
 	}
 );
 export const removeTransaction = createAsyncThunk('transactions/removeTransaction', async (id) => {
-	const transaction = await deleteTransaction(id);
-	return transaction;
+	await deleteTransaction(id);
+	return id;
 });
 
 const transactionsSlice = createSlice({

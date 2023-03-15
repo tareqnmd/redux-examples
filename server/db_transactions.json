@@ -5,12 +5,6 @@
       "type": "income",
       "amount": 50000,
       "id": 1
-    },
-    {
-      "name": "Bazar",
-      "type": "expense",
-      "amount": 30000,
-      "id": 2
     }
   ]
 }
