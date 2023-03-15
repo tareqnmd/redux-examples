@@ -29,6 +29,7 @@ const AddExpense = () => {
 	const handleUpdate = (e) => {
 		e.preventDefault();
 		dispatch(changeTransaction({ id: editTransaction?.id, data: values }));
+		setEditMode(false);
 		reset();
 	};
 
