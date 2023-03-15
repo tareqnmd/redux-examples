@@ -1,40 +1,16 @@
 {
   "transactions": [
     {
-      "id": 1,
-      "name": "Salary from Google",
+      "name": "Salary",
       "type": "income",
-      "amount": 1000000
+      "amount": 50000,
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Family Expenses",
+      "name": "Bazar",
       "type": "expense",
-      "amount": 200000
-    },
-    {
-      "name": "Tareq one",
-      "type": "income",
-      "amount": "11000",
-      "id": 3
-    },
-    {
-      "name": "tareqnmd",
-      "type": "expense",
-      "amount": "5000",
-      "id": 4
-    },
-    {
-      "name": "asd",
-      "type": "income",
-      "amount": 0,
-      "id": 5
-    },
-    {
-      "name": "Slow Horses (Deluxe Edition)",
-      "type": "expense",
-      "amount": 11000,
-      "id": 6
+      "amount": 30000,
+      "id": 2
     }
   ]
 }
