@@ -4,9 +4,11 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'http://localhost:9000',
 	}),
+	tagTypes: ['Videos'],
 	endpoints: (builder) => ({
 		getVideos: builder.query({
 			query: () => '/videos',
+			providesTags: ['Videos'],
 		}),
 		getVideo: builder.query({
 			query: (id) => `videos/${id}`,
@@ -18,7 +20,20 @@ export const apiSlice = createApi({
 				return `videos${query}`;
 			},
 		}),
+		addVideo: builder.mutation({
+			query: (data) => ({
+				url: '/videos',
+				method: 'POST',
+				body: data,
+			}),
+			invalidatesTags: ['Videos'],
+		}),
 	}),
 });
 
-export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery } = apiSlice;
+export const {
+	useGetVideosQuery,
+	useGetVideoQuery,
+	useGetRelatedVideosQuery,
+	useAddVideoMutation,
+} = apiSlice;
