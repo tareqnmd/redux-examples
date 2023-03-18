@@ -15,7 +15,6 @@ export default function Form({ video }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(values);
 		editVideo({ id: video.id, data: values });
 	};
 
