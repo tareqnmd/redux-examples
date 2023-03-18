@@ -31,7 +31,7 @@ export default function Video({ video = {} }) {
 						<Link to="/videos/1">
 							<p className="text-slate-900 text-sm font-semibold">{title}</p>
 						</Link>
-						<span className="text-gray-400 text-xs hover:text-gray-600">Learn with Sumit</span>
+						<span className="text-gray-400 text-xs hover:text-gray-600">{author}</span>
 						<p className="text-gray-400 text-xs">
 							{views} views . {date}
 						</p>
