@@ -1,22 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
-import Add from "./components/pages/Add";
-import Edit from "./components/pages/Edit";
-import Home from "./components/pages/Home";
-import Video from "./components/pages/Video";
+import Conversation from "./pages/Conversation";
+import Inbox from "./pages/Inbox";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
     return (
         <Router>
-            <Navigation />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/videos/:videoId" element={<Video />} />
-                <Route path="/videos/add" element={<Add />} />
-                <Route path="/videos/edit/:videoId" element={<Edit />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/inbox" element={<Conversation />} />
+                <Route path="/inbox/:id" element={<Inbox />} />
             </Routes>
-            <Footer />
         </Router>
     );
 }

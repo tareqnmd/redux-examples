@@ -1,55 +1,9 @@
-# lws-json-server-todos
+# Heroku তে হোস্ট করতে যা যা করতে হবে আপনাকে।
 
-Example in memory todos api with json-server by Learn with Sumit
-
-# Installation
-
-```bash
-git clone git@github.com:learnwithsumit/lws-json-server-todos.git
-cd lws-json-server-todos
-npm install json-server
-npm start
-```
-
-Now opens:
-
-- http://localhost:3000
-
-You now have a full REST API. Test with POSTMAN or any other REST Client):
-
-Retrieve all (GET):
-
-```bash
-GET http://localhost:3000/todos
-```
-
-Retrieve one (GET):
-
-```bash
-GET http://localhost:3000/todos/1
-```
-
-Post a todo (POST):
-
-```bash
-POST http://localhost:3000/todos text="Learn Redux" completed=false color="red"
-```
-
-Update todo (PUT):
-
-```bash
-PUT http://localhost:3000/todos/3 name="Learn Redux with Learn with Sumit" completed=true color="green"
-```
-
-Delete todo (DELETE):
-
-```bash
-DELETE http://localhost:3000/todos/1
-```
-
-
-# Links
-
-- https://github.com/typicode/json-server
-- Jswon view Chrome plugin: https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc
-- Learn with Sumit official website: htts://learnwithsumit.com
+1. এই "server" folder টি কপি করে আলাদা জায়গায় নিয়ে যান।
+2. আপনার গিটহাবে আপ্লোড করুন এই কোড গুলো।
+3. [Heroku](https://dashboard.heroku.com/) তে গিয়ে নতুন প্রজেক্ট তৈরি করুন।
+4. Deployment method এ Github নির্বাচন করুন।
+5. আপনার ব্রাঞ্চ সিলেক্ট করুন।
+6. Deploy branch এ ক্লিক করে ডেপ্লয় করুন।
+7. না বুঝতে পারলে এই ভিডিওটি দেখুন - https://learnwithsumit.com/courses/think-in-a-redux-way/how-to-deploy-server-to-heroku
