@@ -60,10 +60,10 @@ export default function Register() {
 									Full Name
 								</label>
 								<input
-									id="name"
 									name="name"
-									type="Name"
+									type="text"
 									autoComplete="Name"
+									value={values?.name ?? ''}
 									required
 									onChange={stateChange}
 									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
@@ -79,10 +79,10 @@ export default function Register() {
 									Email address
 								</label>
 								<input
-									id="email-address"
 									name="email"
 									type="email"
 									autoComplete="email"
+									value={values?.email ?? ''}
 									required
 									onChange={stateChange}
 									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
@@ -98,9 +98,9 @@ export default function Register() {
 									Password
 								</label>
 								<input
-									id="password"
 									name="password"
 									type="password"
+									value={values?.password ?? ''}
 									autoComplete="current-password"
 									required
 									onChange={stateChange}
@@ -117,9 +117,9 @@ export default function Register() {
 									Confirm Password
 								</label>
 								<input
-									id="confirmPassword"
 									name="confirmPassword"
 									type="password"
+									value={values?.confirmPassword ?? ''}
 									autoComplete="current-confirmPassword"
 									required
 									onChange={stateChange}
@@ -136,6 +136,7 @@ export default function Register() {
 									name="agree"
 									type="checkbox"
 									required
+									checked={values?.agree ?? false}
 									onChange={stateChange}
 									className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
 								/>
