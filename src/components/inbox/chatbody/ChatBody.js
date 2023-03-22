@@ -23,7 +23,7 @@ export default function ChatBody() {
 	} else if (!isLoading && !isError && messages?.length > 0) {
 		content = (
 			<>
-				<ChatHead message={messages[0]} />
+				<ChatHead conversationId={id} />
 				<Messages messages={messages} />
 				<Options />
 				{/* <Blank /> */}
