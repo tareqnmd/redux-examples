@@ -52,7 +52,7 @@ export default function Modal({ open, control }) {
 			addConversation({
 				participants: `${user?.email}-${values.to}`,
 				users: [user, participant[0]],
-				messages: values.message,
+				message: values.message,
 				timestamp: new Date().getTime(),
 			});
 		}
