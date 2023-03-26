@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { conversationsApi } from '../../features/conversations/conversations.api';
+import {
+	conversationsApi,
+	useAddConversationMutation,
+	useEditConversationMutation,
+} from '../../features/conversations/conversations.api';
 import { useGetUserQuery } from '../../features/users/usersApi';
 import validateEmail from '../../utils/validateEmail';
 import Error from '../ui/Error';
@@ -12,6 +16,8 @@ export default function Modal({ open, control }) {
 	const [userCheck, setUserCheck] = useState(false);
 	const { data: participant } = useGetUserQuery(values?.to, { skip: !userCheck });
 	const { user } = useSelector((state) => state.auth) || {};
+	const [addConversation, { isSuccess: isAddSuccess }] = useAddConversationMutation();
+	const [editConversation, { isSuccess: isEditSuccess }] = useEditConversationMutation();
 	const debounceHandler = (fn, delay) => {
 		let timeoutId;
 		return (...args) => {
@@ -35,7 +41,21 @@ export default function Modal({ open, control }) {
 	};
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('values', values);
+		if (conversation?.length > 0) {
+			editConversation({
+				id: conversation[0].id,
+				data: {
+					message: values.message,
+				},
+			});
+		} else if (conversation?.length === 0) {
+			addConversation({
+				participants: `${user?.email}-${values.to}`,
+				users: [user, participant[0]],
+				messages: values.message,
+				timestamp: new Date().getTime(),
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -51,6 +71,13 @@ export default function Modal({ open, control }) {
 				.catch((err) => setResponseError(err?.message));
 		}
 	}, [participant, dispatch, user?.email, values?.to]);
+
+	useEffect(() => {
+		if (isAddSuccess || isEditSuccess) {
+			control();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isAddSuccess, isEditSuccess]);
 	return (
 		open && (
 			<>
