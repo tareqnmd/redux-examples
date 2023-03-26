@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { conversationsApi } from '../../features/conversations/conversations.api';
 import { useGetUserQuery } from '../../features/users/usersApi';
 import validateEmail from '../../utils/validateEmail';
 import Error from '../ui/Error';
 export default function Modal({ open, control }) {
+	const dispatch = useDispatch();
 	const [values, setValues] = useState({});
+	const [responseError, setResponseError] = useState('');
+	const [conversation, setConversation] = useState(undefined);
 	const [userCheck, setUserCheck] = useState(false);
 	const { data: participant } = useGetUserQuery(values?.to, { skip: !userCheck });
+	const { user } = useSelector((state) => state.auth) || {};
 	const debounceHandler = (fn, delay) => {
 		let timeoutId;
 		return (...args) => {
@@ -31,6 +37,20 @@ export default function Modal({ open, control }) {
 		e.preventDefault();
 		console.log('values', values);
 	};
+
+	useEffect(() => {
+		if (participant?.length === 1 && participant[0]?.email !== user?.email) {
+			dispatch(
+				conversationsApi.endpoints.getConversationParticipant.initiate({
+					userEmail: user.email,
+					participantEmail: values.to,
+				})
+			)
+				.unwrap()
+				.then((data) => setConversation(data))
+				.catch((err) => setResponseError(err?.message));
+		}
+	}, [participant, dispatch, user?.email, values?.to]);
 	return (
 		open && (
 			<>
@@ -85,12 +105,21 @@ export default function Modal({ open, control }) {
 							<button
 								type="submit"
 								className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
+								disabled={
+									conversation === undefined ||
+									participant[0]?.email === user?.email ||
+									participant?.length !== 1
+								}
 							>
 								Send Message
 							</button>
 						</div>
 
 						{participant?.length === 0 && <Error message="This user doses not exist" />}
+						{participant?.length > 0 && participant[0]?.email === user?.email && (
+							<Error message="Same User" />
+						)}
+						{responseError && <Error message={responseError} />}
 					</form>
 				</div>
 			</>
