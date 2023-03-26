@@ -44,16 +44,22 @@ export default function Modal({ open, control }) {
 		if (conversation?.length > 0) {
 			editConversation({
 				id: conversation[0].id,
+				sender: user,
+				receiver: participant[0],
 				data: {
 					message: values.message,
 				},
 			});
 		} else if (conversation?.length === 0) {
 			addConversation({
-				participants: `${user?.email}-${values.to}`,
-				users: [user, participant[0]],
-				message: values.message,
-				timestamp: new Date().getTime(),
+				sender: user,
+				receiver: participant[0],
+				data: {
+					participants: `${user?.email}-${values.to}`,
+					users: [user, participant[0]],
+					message: values.message,
+					timestamp: new Date().getTime(),
+				},
 			});
 		}
 	};

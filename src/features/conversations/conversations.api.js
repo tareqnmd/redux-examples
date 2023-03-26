@@ -1,4 +1,5 @@
 import { apiSlice } from '../api/apiSlice';
+import { messagesApi } from '../messages/messages.api';
 
 export const conversationsApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -18,11 +19,25 @@ export const conversationsApi = apiSlice.injectEndpoints({
 			}),
 		}),
 		addConversation: builder.mutation({
-			query: (data) => ({
+			query: ({ data }) => ({
 				url: '/conversations',
 				method: 'POST',
 				body: data,
 			}),
+			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+				const conversation = await queryFulfilled;
+				if (conversation?.data?.id) {
+					dispatch(
+						messagesApi.endpoints.addMessage.initiate({
+							conversationId: conversation.data.id,
+							sender: arg.sender,
+							receiver: arg.receiver,
+							message: arg.data.message,
+							timestamp: arg.data.timestamp,
+						})
+					);
+				}
+			},
 		}),
 		editConversation: builder.mutation({
 			query: ({ id, data }) => ({
@@ -30,6 +45,20 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				method: 'PATCH',
 				body: data,
 			}),
+			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+				const conversation = await queryFulfilled;
+				if (conversation?.data?.id) {
+					dispatch(
+						messagesApi.endpoints.addMessage.initiate({
+							conversationId: conversation.data.id,
+							sender: arg.sender,
+							receiver: arg.receiver,
+							message: arg.data.message,
+							timestamp: arg.data.timestamp,
+						})
+					);
+				}
+			},
 		}),
 	}),
 });
