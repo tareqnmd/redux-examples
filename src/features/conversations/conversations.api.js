@@ -34,7 +34,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				try {
 					const conversation = await queryFulfilled;
 					if (conversation?.data?.id) {
-						dispatch(
+						const messageAdd = await dispatch(
 							messagesApi.endpoints.addMessage.initiate({
 								conversationId: conversation.data.id,
 								sender: arg.sender,
@@ -42,6 +42,16 @@ export const conversationsApi = apiSlice.injectEndpoints({
 								message: arg.data.message,
 								timestamp: arg.data.timestamp,
 							})
+						).unwrap();
+						//pessimistic
+						dispatch(
+							apiSlice.util.updateQueryData(
+								'getMessages',
+								messageAdd.conversationId.toString(),
+								(draft) => {
+									draft.push(messageAdd);
+								}
+							)
 						);
 					}
 				} catch (error) {
@@ -67,7 +77,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				try {
 					const conversation = await queryFulfilled;
 					if (conversation?.data?.id) {
-						dispatch(
+						const messageAdd = await dispatch(
 							messagesApi.endpoints.addMessage.initiate({
 								conversationId: conversation.data.id,
 								sender: arg.sender,
@@ -75,6 +85,16 @@ export const conversationsApi = apiSlice.injectEndpoints({
 								message: arg.data.message,
 								timestamp: arg.data.timestamp,
 							})
+						).unwrap();
+						//pessimistic
+						dispatch(
+							apiSlice.util.updateQueryData(
+								'getMessages',
+								messageAdd.conversationId.toString(),
+								(draft) => {
+									draft.push(messageAdd);
+								}
+							)
 						);
 					}
 				} catch (error) {
