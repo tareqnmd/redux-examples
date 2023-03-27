@@ -48,6 +48,7 @@ export default function Modal({ open, control }) {
 				receiver: participant[0],
 				data: {
 					message: values.message,
+					timestamp: new Date().getTime(),
 				},
 			});
 		} else if (conversation?.length === 0) {

@@ -25,17 +25,27 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				body: data,
 			}),
 			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-				const conversation = await queryFulfilled;
-				if (conversation?.data?.id) {
-					dispatch(
-						messagesApi.endpoints.addMessage.initiate({
-							conversationId: conversation.data.id,
-							sender: arg.sender,
-							receiver: arg.receiver,
-							message: arg.data.message,
-							timestamp: arg.data.timestamp,
-						})
-					);
+				//optimistic
+				const patchMessageResult = dispatch(
+					apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
+						draft.push(arg.data);
+					})
+				);
+				try {
+					const conversation = await queryFulfilled;
+					if (conversation?.data?.id) {
+						dispatch(
+							messagesApi.endpoints.addMessage.initiate({
+								conversationId: conversation.data.id,
+								sender: arg.sender,
+								receiver: arg.receiver,
+								message: arg.data.message,
+								timestamp: arg.data.timestamp,
+							})
+						);
+					}
+				} catch (error) {
+					patchMessageResult.undo();
 				}
 			},
 		}),
@@ -46,17 +56,29 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				body: data,
 			}),
 			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-				const conversation = await queryFulfilled;
-				if (conversation?.data?.id) {
-					dispatch(
-						messagesApi.endpoints.addMessage.initiate({
-							conversationId: conversation.data.id,
-							sender: arg.sender,
-							receiver: arg.receiver,
-							message: arg.data.message,
-							timestamp: arg.data.timestamp,
-						})
-					);
+				//optimistic
+				const patchConversationResult = dispatch(
+					apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
+						const editConversation = draft.find((c) => c.id === arg.id);
+						editConversation.message = arg.data.message;
+						editConversation.timestamp = arg.data.timestamp;
+					})
+				);
+				try {
+					const conversation = await queryFulfilled;
+					if (conversation?.data?.id) {
+						dispatch(
+							messagesApi.endpoints.addMessage.initiate({
+								conversationId: conversation.data.id,
+								sender: arg.sender,
+								receiver: arg.receiver,
+								message: arg.data.message,
+								timestamp: arg.data.timestamp,
+							})
+						);
+					}
+				} catch (error) {
+					patchConversationResult.undo();
 				}
 			},
 		}),

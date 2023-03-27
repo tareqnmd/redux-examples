@@ -20,6 +20,7 @@ export default function Options() {
 			receiver: conversation.users.find((item) => item.id !== user.id),
 			data: {
 				message: message,
+				timestamp: new Date().getTime(),
 			},
 		});
 	};
