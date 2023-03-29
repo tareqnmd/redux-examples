@@ -20,9 +20,11 @@ export const messagesApi = apiSlice.injectEndpoints({
 				try {
 					await cacheDataLoaded;
 					socket.on('message', (data) => {
-						updateCachedData((draft) => {
-							draft.push(data.data);
-						});
+						if (String(arg) === String(data?.data?.conversationId)) {
+							updateCachedData((draft) => {
+								draft.push(data.data);
+							});
+						}
 					});
 				} catch (error) {}
 			},
