@@ -52,15 +52,15 @@ export const conversationsApi = apiSlice.injectEndpoints({
 			}),
 			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
 				//optimistic
-				const patchMessageResult = dispatch(
-					apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
-						draft.push(arg.data);
-					})
-				);
+				// const patchMessageResult = dispatch(
+				// 	apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
+				// 		draft.push(arg.data);
+				// 	})
+				// );
 				try {
 					const conversation = await queryFulfilled;
 					if (conversation?.data?.id) {
-						const messageAdd = await dispatch(
+						await dispatch(
 							messagesApi.endpoints.addMessage.initiate({
 								conversationId: conversation.data.id,
 								sender: arg.sender,
@@ -68,20 +68,29 @@ export const conversationsApi = apiSlice.injectEndpoints({
 								message: arg.data.message,
 								timestamp: arg.data.timestamp,
 							})
-						).unwrap();
-						//pessimistic
-						dispatch(
-							apiSlice.util.updateQueryData(
-								'getMessages',
-								messageAdd.conversationId.toString(),
-								(draft) => {
-									draft.push(messageAdd);
-								}
-							)
 						);
+						// const messageAdd = await dispatch(
+						// 	messagesApi.endpoints.addMessage.initiate({
+						// 		conversationId: conversation.data.id,
+						// 		sender: arg.sender,
+						// 		receiver: arg.receiver,
+						// 		message: arg.data.message,
+						// 		timestamp: arg.data.timestamp,
+						// 	})
+						// ).unwrap();
+						//pessimistic
+						// dispatch(
+						// 	apiSlice.util.updateQueryData(
+						// 		'getMessages',
+						// 		messageAdd.conversationId.toString(),
+						// 		(draft) => {
+						// 			draft.push(messageAdd);
+						// 		}
+						// 	)
+						// );
 					}
 				} catch (error) {
-					patchMessageResult.undo();
+					// patchMessageResult.undo();
 				}
 			},
 		}),
@@ -93,17 +102,17 @@ export const conversationsApi = apiSlice.injectEndpoints({
 			}),
 			async onQueryStarted(arg, { queryFulfilled, dispatch }) {
 				//optimistic
-				const patchConversationResult = dispatch(
-					apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
-						const editConversation = draft.find((c) => c.id === arg.id);
-						editConversation.message = arg.data.message;
-						editConversation.timestamp = arg.data.timestamp;
-					})
-				);
+				// const patchConversationResult = dispatch(
+				// 	apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
+				// 		const editConversation = draft.find((c) => c.id === arg.id);
+				// 		editConversation.message = arg.data.message;
+				// 		editConversation.timestamp = arg.data.timestamp;
+				// 	})
+				// );
 				try {
 					const conversation = await queryFulfilled;
 					if (conversation?.data?.id) {
-						const messageAdd = await dispatch(
+						await dispatch(
 							messagesApi.endpoints.addMessage.initiate({
 								conversationId: conversation.data.id,
 								sender: arg.sender,
@@ -111,20 +120,29 @@ export const conversationsApi = apiSlice.injectEndpoints({
 								message: arg.data.message,
 								timestamp: arg.data.timestamp,
 							})
-						).unwrap();
-						//pessimistic
-						dispatch(
-							apiSlice.util.updateQueryData(
-								'getMessages',
-								messageAdd.conversationId.toString(),
-								(draft) => {
-									draft.push(messageAdd);
-								}
-							)
 						);
+						// const messageAdd = await dispatch(
+						// 	messagesApi.endpoints.addMessage.initiate({
+						// 		conversationId: conversation.data.id,
+						// 		sender: arg.sender,
+						// 		receiver: arg.receiver,
+						// 		message: arg.data.message,
+						// 		timestamp: arg.data.timestamp,
+						// 	})
+						// ).unwrap();
+						//pessimistic
+						// dispatch(
+						// 	apiSlice.util.updateQueryData(
+						// 		'getMessages',
+						// 		messageAdd.conversationId.toString(),
+						// 		(draft) => {
+						// 			draft.push(messageAdd);
+						// 		}
+						// 	)
+						// );
 					}
 				} catch (error) {
-					patchConversationResult.undo();
+					// patchConversationResult.undo();
 				}
 			},
 		}),
