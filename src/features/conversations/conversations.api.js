@@ -8,6 +8,13 @@ export const conversationsApi = apiSlice.injectEndpoints({
 			query: (email) => ({
 				url: `/conversations?participants_like=${email}&_sort=timestamp&_order=desc&_page=1&_limit=${process.env.REACT_APP_CONVERSATIONS_PER_PAGE}`,
 			}),
+			transformResponse(apiResponse, meta) {
+				const totalCount = meta.response.headers.get('X-Total-Count');
+				return {
+					conversations: apiResponse,
+					totalCount: totalCount,
+				};
+			},
 			async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
 				const socket = io('http://localhost:9000', {
 					reconnectionDelay: 1000,
@@ -22,16 +29,39 @@ export const conversationsApi = apiSlice.injectEndpoints({
 					await cacheDataLoaded;
 					socket.on('conversation', (data) => {
 						updateCachedData((draft) => {
-							const conversation = draft?.find((c) => String(c.id) === String(data?.data?.id));
+							const conversation = draft?.conversations?.find(
+								(c) => String(c.id) === String(data?.data?.id)
+							);
 							if (conversation?.id) {
 								conversation.message = data.data.message;
 								conversation.timestamp = data.data.timestamp;
 							} else {
-								draft.push(data.data);
+								draft?.conversations?.push(data.data);
 							}
 						});
 					});
 				} catch (error) {}
+			},
+		}),
+		getMoreConversations: builder.query({
+			query: ({ email, page }) =>
+				`/conversations?participants_like=${email}&_sort=timestamp&_order=desc&_page=${page}&_limit=${process.env.REACT_APP_CONVERSATIONS_PER_PAGE}`,
+			async onQueryStarted({ email }, { queryFulfilled, dispatch }) {
+				try {
+					const conversations = await queryFulfilled;
+					if (conversations?.data?.length > 0) {
+						// update conversation cache pessimistically start
+						dispatch(
+							apiSlice.util.updateQueryData('getConversations', email, (draft) => {
+								return {
+									conversations: [...draft.conversations, ...conversations.data],
+									totalCount: Number(draft.totalCount),
+								};
+							})
+						);
+						// update messages cache pessimistically end
+					}
+				} catch (err) {}
 			},
 		}),
 		getConversationParticipant: builder.query({
@@ -54,7 +84,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				//optimistic
 				// const patchMessageResult = dispatch(
 				// 	apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
-				// 		draft.push(arg.data);
+				// 		draft.conversations?.push(arg.data);
 				// 	})
 				// );
 				try {
@@ -104,7 +134,7 @@ export const conversationsApi = apiSlice.injectEndpoints({
 				//optimistic
 				// const patchConversationResult = dispatch(
 				// 	apiSlice.util.updateQueryData('getConversations', arg.sender.email, (draft) => {
-				// 		const editConversation = draft.find((c) => c.id === arg.id);
+				// 		const editConversation = draft.conversations?.find((c) => c.id === arg.id);
 				// 		editConversation.message = arg.data.message;
 				// 		editConversation.timestamp = arg.data.timestamp;
 				// 	})
